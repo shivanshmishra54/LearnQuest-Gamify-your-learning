@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnQuest - Gamified Learning Platform</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <img src="images/friendly-cartoon-mascot-owl-with-graduation-cap.jpg" alt="LearnQuest Mascot" class="mascot-logo">
+                <span class="brand-text">LearnQuest</span>
+            </div>
+            <div class="nav-actions">
+                <select id="languageSelect" class="language-select">
+                    <option value="en">English</option>
+                    <option value="hi">हिंदी</option>
+                    <option value="mr">मराठी</option>
+                </select>
+                <button class="btn btn-outline" onclick="showLogin()">Login</button>
+                <button class="btn btn-primary" onclick="showRegister()">Get Started</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Landing Page -->
+    <main id="landingPage" class="page active">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1 class="hero-title" data-i18n="hero.title">Welcome to LearnQuest</h1>
+                    <p class="hero-subtitle" data-i18n="hero.subtitle">Gamified Learning for Rural Students</p>
+                    <p class="hero-description" data-i18n="hero.description">Join thousands of students in an exciting journey of learning STEM subjects through interactive quizzes and games.</p>
+                    <div class="hero-actions">
+                        <button class="btn btn-primary btn-large" onclick="showRegister('student')" data-i18n="hero.student">I'm a Student</button>
+                        <button class="btn btn-secondary btn-large" onclick="showRegister('teacher')" data-i18n="hero.teacher">I'm a Teacher</button>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="images/friendly-cartoon-mascot-owl-with-graduation-cap.jpg" alt="Learning Mascot" class="mascot-hero">
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features">
+            <div class="container">
+                <h2 class="section-title" data-i18n="features.title">Why Choose LearnQuest?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-gamepad"></i>
+                        </div>
+                        <h3 data-i18n="features.gamified.title">Gamified Learning</h3>
+                        <p data-i18n="features.gamified.desc">Earn XP, unlock badges, and compete with classmates while mastering STEM subjects</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3 data-i18n="features.mobile.title">Mobile-First Design</h3>
+                        <p data-i18n="features.mobile.desc">Optimized for low-cost smartphones and tablets used in rural areas</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-language"></i>
+                        </div>
+                        <h3 data-i18n="features.multilingual.title">Multilingual Support</h3>
+                        <p data-i18n="features.multilingual.desc">Learn in Hindi, English, or Marathi - whatever feels most comfortable</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-wifi"></i>
+                        </div>
+                        <h3 data-i18n="features.offline.title">Offline Ready</h3>
+                        <p data-i18n="features.offline.desc">Continue learning even without internet</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3 data-i18n="features.analytics.title">Progress Tracking</h3>
+                        <p data-i18n="features.analytics.desc">Track your learning journey and improvements</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 data-i18n="auth.login">Login</h2>
+                <button class="modal-close" onclick="closeModal('loginModal')">&times;</button>
+            </div>
+            <form id="loginForm" class="auth-form">
+                <div class="form-group">
+                    <label for="loginEmail" data-i18n="auth.email">Email</label>
+                    <input type="email" id="loginEmail" required data-i18n-placeholder="auth.email">
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword" data-i18n="auth.password">Password</label>
+                    <input type="password" id="loginPassword" required data-i18n-placeholder="auth.password">
+                </div>
+                <button type="submit" class="btn btn-primary btn-full" data-i18n="auth.submit">Submit</button>
+            </form>
+            <p class="auth-switch">
+                <span data-i18n="auth.switch.login">Already have an account? Login</span>
+            </p>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 data-i18n="auth.register">Register</h2>
+                <button class="modal-close" onclick="closeModal('registerModal')">&times;</button>
+            </div>
+            <form id="registerForm" class="auth-form">
+                <div class="form-group">
+                    <label for="registerName" data-i18n="auth.name">Full Name</label>
+                    <input type="text" id="registerName" required data-i18n-placeholder="auth.name">
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail" data-i18n="auth.email">Email</label>
+                    <input type="email" id="registerEmail" required data-i18n-placeholder="auth.email">
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword" data-i18n="auth.password">Password</label>
+                    <input type="password" id="registerPassword" required data-i18n-placeholder="auth.password">
+                </div>
+                <div class="form-group">
+                    <label for="registerRole" data-i18n="auth.role">I am a</label>
+                    <select id="registerRole" required>
+                        <option value="">Select Role</option>
+                        <option value="student" data-i18n="auth.student">Student</option>
+                        <option value="teacher" data-i18n="auth.teacher">Teacher</option>
+                    </select>
+                </div>
+                <div id="studentFields" class="form-group" style="display: none;">
+                    <label for="registerClass" data-i18n="auth.class">Class</label>
+                    <select id="registerClass">
+                        <option value="">Select Class</option>
+                        <option value="6">Class 6</option>
+                        <option value="7">Class 7</option>
+                        <option value="8">Class 8</option>
+                        <option value="9">Class 9</option>
+                        <option value="10">Class 10</option>
+                        <option value="11">Class 11</option>
+                        <option value="12">Class 12</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="registerLanguage" data-i18n="auth.language">Preferred Language</label>
+                    <select id="registerLanguage" required>
+                        <option value="en">English</option>
+                        <option value="hi">हिंदी</option>
+                        <option value="mr">मराठी</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full" data-i18n="auth.submit">Submit</button>
+            </form>
+            <p class="auth-switch">
+                <span data-i18n="auth.switch.register">Don't have an account? Register</span>
+            </p>
+        </div>
+    </div>
+
+    <!-- Student Dashboard -->
+    <div id="studentDashboard" class="page">
+        <div class="dashboard-header">
+            <div class="user-info">
+                <img src="images/friendly-cartoon-mascot-owl-with-graduation-cap.jpg" alt="Avatar" class="user-avatar">
+                <div class="user-details">
+                    <h2 id="studentName">Student Name</h2>
+                    <div class="user-stats">
+                        <span class="level">Level <span id="studentLevel">1</span></span>
+                        <span class="xp"><span id="studentXP">0</span> XP</span>
+                    </div>
+                </div>
+            </div>
+            <div class="dashboard-actions">
+                <button class="btn btn-outline" onclick="logout()" data-translate="dashboard.logout">Logout</button>
+            </div>
+        </div>
+
+        <div class="dashboard-content">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="classRank">1</h3>
+                        <p data-translate="dashboard.classRank">Class Rank</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="streak">5</h3>
+                        <p data-translate="dashboard.streak">Day Streak</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="badges">3</h3>
+                        <p data-translate="dashboard.badges">Badges</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="accuracy">85%</h3>
+                        <p data-translate="dashboard.accuracy">Accuracy</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subjects-grid">
+                <div class="subject-card" onclick="startQuiz('math')">
+                    <div class="subject-icon math">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3 data-translate="subjects.math">Mathematics</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%"></div>
+                    </div>
+                    <p>75% Complete</p>
+                </div>
+                <div class="subject-card" onclick="startQuiz('science')">
+                    <div class="subject-icon science">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <h3 data-translate="subjects.science">Science</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 60%"></div>
+                    </div>
+                    <p>60% Complete</p>
+                </div>
+                <div class="subject-card" onclick="startQuiz('physics')">
+                    <div class="subject-icon physics">
+                        <i class="fas fa-atom"></i>
+                    </div>
+                    <h3 data-translate="subjects.physics">Physics</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 45%"></div>
+                    </div>
+                    <p>45% Complete</p>
+                </div>
+                <div class="subject-card" onclick="showLeaderboard()">
+                    <div class="subject-icon leaderboard">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3 data-translate="dashboard.leaderboard">Leaderboard</h3>
+                    <p data-translate="dashboard.seeRankings">See your rankings</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Teacher Dashboard -->
+    <div id="teacherDashboard" class="page">
+        <div class="dashboard-header">
+            <div class="user-info">
+                <img src="images/friendly-cartoon-mascot-owl-with-graduation-cap.jpg" alt="Avatar" class="user-avatar">
+                <div class="user-details">
+                    <h2 id="teacherName">Teacher Name</h2>
+                    <p data-translate="dashboard.teacher.subtitle">Class Teacher</p>
+                </div>
+            </div>
+            <div class="dashboard-actions">
+                <button class="btn btn-outline" onclick="logout()" data-translate="dashboard.logout">Logout</button>
+            </div>
+        </div>
+
+        <div class="dashboard-content">
+            <div class="teacher-stats">
+                <div class="stat-card">
+                    <h3 id="totalStudents">25</h3>
+                    <p data-translate="teacher.totalStudents">Total Students</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="activeStudents">18</h3>
+                    <p data-translate="teacher.activeStudents">Active This Week</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="avgScore">78%</h3>
+                    <p data-translate="teacher.avgScore">Average Score</p>
+                </div>
+            </div>
+
+            <div class="students-list">
+                <h3 data-translate="teacher.studentProgress">Student Progress</h3>
+                <div id="studentsList" class="students-grid">
+                    <!-- Students will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quiz Interface -->
+    <div id="quizInterface" class="page">
+        <div class="quiz-header">
+            <div class="quiz-info">
+                <h2 id="quizSubject">Mathematics Quiz</h2>
+                <div class="quiz-stats">
+                    <span>Question <span id="currentQuestion">1</span> of <span id="totalQuestions">10</span></span>
+                    <span class="timer">Time: <span id="timeLeft">30</span>s</span>
+                </div>
+            </div>
+            <div class="quiz-score">
+                <span>Score: <span id="quizScore">0</span></span>
+            </div>
+        </div>
+
+        <div class="quiz-content">
+            <div class="question-card">
+                <h3 id="questionText">What is 2 + 2?</h3>
+                <div class="options-grid" id="optionsGrid">
+                    <!-- Options will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="lifelines">
+                <button class="lifeline-btn" id="fiftyFifty" onclick="useLifeline('50-50')">
+                    <i class="fas fa-divide"></i>
+                    <span>50:50</span>
+                </button>
+                <button class="lifeline-btn" id="hint" onclick="useLifeline('hint')">
+                    <i class="fas fa-lightbulb"></i>
+                    <span>Hint</span>
+                </button>
+                <button class="lifeline-btn" id="skip" onclick="useLifeline('skip')">
+                    <i class="fas fa-forward"></i>
+                    <span>Skip</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaderboard -->
+    <div id="leaderboard" class="page">
+        <div class="page-header">
+            <h2 data-translate="leaderboard.title">Leaderboard</h2>
+            <button class="btn btn-outline" onclick="showStudentDashboard()" data-translate="common.back">Back</button>
+        </div>
+
+        <div class="leaderboard-content">
+            <div class="podium">
+                <div class="podium-place second">
+                    <div class="podium-avatar">
+                        <img src="images/friendly-cartoon-mascot-owl-with-graduation-cap.jpg" alt="2nd Place">
+                    </div>
+                    <h4>Student 2</h4>
+                    <p>850 XP</p>
+                    <div class="podium-rank">2</div>
+                </div>
+                <div class="podium-place first">
+                    <div class="podium-avatar">
+                        <img src="images/friendly-cartoon-mascot-owl-with-graduation-cap.jpg" alt="1st Place">
+                    </div>
+                    <h4>Student 1</h4>
+                    <p>950 XP</p>
+                    <div class="podium-rank">1</div>
+                </div>
+                <div class="podium-place third">
+                    <div class="podium-avatar">
+                        <img src="images/friendly-cartoon-mascot-owl-with-graduation-cap.jpg" alt="3rd Place">
+                    </div>
+                    <h4>Student 3</h4>
+                    <p>780 XP</p>
+                    <div class="podium-rank">3</div>
+                </div>
+            </div>
+
+            <div class="leaderboard-list" id="leaderboardList">
+                <!-- Leaderboard entries will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/i18n.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/quiz.js"></script>
+    <script src="js/leaderboard.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
